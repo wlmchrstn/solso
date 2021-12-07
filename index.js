@@ -73,6 +73,6 @@ app.listen(port, () => {
 
 setInterval(function() {
   http.get(process.env.BE_HOME_URL)
-}, 300000);
+}, 900000);
 
 module.exports = app;
