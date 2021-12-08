@@ -16,12 +16,11 @@ const saltRounds = 10;
 module.exports = {
     async createMember(req, res) {
         try {
-            const usernameQuery = await Member.where({ username: req.body.username });
-            if (usernameQuery != [])
+            const usernameValidation = await Member.findOne({ username: req.body.username });
+            if (usernameValidation)
                 return res.status(400).json(error('Username is already taken!', '-', 400));
-
-            const emailQuery = await Member.where({ email: req.body.email });
-            if (emailQuery != [])
+            const emailValidation = await Member.findOne({ email: req.body.email });
+            if (emailValidation)
                 return res.status(400).json(error('Email is already used!', '-', 400));
 
             if (req.body.password.length <= 5 || req.body.password.length >= 33) {
