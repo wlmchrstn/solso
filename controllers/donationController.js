@@ -115,6 +115,20 @@ module.exports = {
         };
     },
 
+    async getDonationPayment(req, res) {
+        try {
+            const eventDonation = await EventDonation.findOne({ donation: req.params.id, member: req.decoded._id});
+            if (eventDonation) {
+                return res.status(200).json(success('Get Transaction', eventDonation));
+            }
+            else {
+                return res.status(404).json(error('Transaction not found', '-', 404));
+            };
+        } catch(err) {
+            res.status(400).json(error('Failed to retrieve transaction', err, 400));
+        };
+    },
+
     async getAllDonationPayment(req, res) {
         try {
             let donation = EventDonation.find({ donation: req.params.id });

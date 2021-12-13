@@ -7,6 +7,7 @@ const {
     showAllDonation,
     showDonationDetail,
     payDonation,
+    getDonationPayment,
 } = require('../../controllers/donationController');
 
 router.post('/create-donation', isAuthenticated, createDonation);
@@ -16,5 +17,6 @@ router.delete('/delete-donation/:id', isAuthenticated, deleteDonation);
 router.get('/show-donation', isAuthenticated, showAllDonation);
 router.get('/show-donation/:id', isAuthenticated, showDonationDetail);
 router.post('/pay-donation/:id', isAuthenticated, payDonation);
+router.get('/donation-payment/:id', isAuthenticated, getDonationPayment);
 
 module.exports = router;
