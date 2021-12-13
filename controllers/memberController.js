@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const funcHelper = require('../helpers/funcHelper');
 const { success, error } = require('../helpers/response');
 const { sendResetPassword } = require('../services/nodemailer');
-var datauri = require('datauri');
+const DatauriParser = require('datauri/parser');
 const sgMail = require('@sendgrid/mail');
 const multer = require('multer');
 const uploader = multer().single('image');
@@ -148,7 +148,8 @@ module.exports = {
             return res.status(415).json(error('No file received: Unsupported Media Type', req.file, 415));
         };
 
-        const dUri = new datauri();
+        const dUri = new DatauriParser();
+
         uploader(req, res, err => {
             var file = dUri.format(`${req.file.originalname}-${Date.now()}`, req.file.buffer);
             cloudinary.uploader.upload(file.content)
