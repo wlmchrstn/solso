@@ -71,8 +71,26 @@ module.exports = {
                 res.status(403).json(error('Not authorized!', '-', 403));
             }
         } catch(err) {
-            res.status(400).json(error('Failed to delete Donation!', err.message,400));
+            res.status(400).json(error('Failed to delete Donation!', err.message, 400));
         }
+    },
+
+    async showAllDonation(req, res) {
+        try {
+            let donation = await Donation.find({});
+            res.status(200).json(success('Show all Donation!', donation));
+        } catch(err) {
+            res.status(400).json(error('Failed to retrieve all donation!', err.message, 400));
+        };
+    },
+
+    async showDonationDetail(req, res) {
+        try {
+            let donation = await Donation.findById(req.params.id);
+            res.status(200).json(success('Show donation detail!', donation));
+        } catch(err) {
+            res.status(400).json(error('Failed to retrieve all donation!', err.message, 400));
+        };
     },
 
     async payDonation(req, res) {
@@ -115,5 +133,5 @@ module.exports = {
         };
     },
 
-    
+
 }
