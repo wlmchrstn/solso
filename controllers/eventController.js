@@ -8,6 +8,7 @@ const cron = require('node-cron');
 const cloudinary = require('cloudinary').v2;
 const uploader = multer().single('image');
 
+// CronJob
 cron.schedule('0 0 1 * * *', () => {
     Event.find({ status: 'Upcoming' })
         .then(res => {
